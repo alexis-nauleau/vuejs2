@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Vue Mart</h1>
+        <h2>
+           <span v-if="shoppingCard[0].cost > 10">Mon </span> Panier
+        </h2>
+        <ul>
+            <li v-for="element in shoppingCard" v-if="element.cost != 0">
+                <a v-bind:href="element.url">{{element.label}}</a>: {{element.cost}} 
+            </li>
+            <p>Total:{{totalPrice}} €</p>
+        </ul>
+        <button @click="showModal = !showModal">Display </button>
+        <div v-show="showModal" class="modal">...</div>
+        <div class="color">
+            <h2>color:{{favoriteColor}}</h2>
+            <button v-on:click="showColor()">color</button>
+            <input type="text" id="" v-model="favoriteColor">
+        </div>
+     
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+    <script>
+        const app =new Vue({
+            el:"#app",
+            data:{
+                favoriteColor:'bleu',
+                showModal:false,
+                shoppingCard:[
+                    {
+                    label:'Apples',
+                    cost:6,
+                    url:"/apples.html",
+                },
+                    {
+                    label:'Bananas',
+                    cost:0,
+                    url:"/bananas.html",
+                },
+                    {
+                    label:'coconuts',
+                    cost:8,
+                    url:"/coconuts.html",
+                }
+            ]
+            },
+            computed:{
+                totalPrice(){
+                    let total=0
+                    this.shoppingCard.forEach(element => {
+                        total+=element.cost
+                        
+                    });
+                    return total
+                }
+            },
+            methods:{
+                showColor(){
+                    alert(this.favoriteColor)
+                },
+     
+            }
+        })
+    </script>
+</body>
+
+</html>
+
